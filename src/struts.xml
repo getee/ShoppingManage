@@ -6,11 +6,9 @@
 <!-- 开启动态方法调用 -->
 <constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
 
+<include file="struts_user.xml"></include>
+<include file="struts_wine.xml"></include>
+<include file="struts_DD.xml"></include>
+<include file="struts_comment.xml"></include>
 
-	<package name="user" extends="struts-default" abstract="false" namespace="/">
-	   <action name="UserAction" class="com.getee.shopmange.action.UserAction"  >
-	        <result name="success" type="redirect">/index.jsp</result>
-	        <result name="fail">/login.jsp</result>
-	   </action>
-	</package>
 </struts>
