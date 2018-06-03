@@ -15,18 +15,18 @@
 </head>
 <body>
 
-<div class="easyui-layout" style="width:100%;height:350px;">
-<div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
+<div class="easyui-layout" style="width:100%;height:700px;">
+<div data-options="region:'center',iconCls:'icon-ok'">
 			<table class="easyui-datagrid"
 					data-options="url:'datagrid_data1.json',method:'get',border:false,singleSelect:true,fit:true,fitColumns:true">
 				<thead>
 					<tr>
-						<th data-options="field:'itemid',align:'center'" width="80">订单编号</th>
-						<th data-options="field:'productid',align:'center'" width="100">用户编号 </th>
-						<th data-options="field:'listprice',align:'center'" width="80">商品编号</th>
-						<th data-options="field:'unitcost',align:'center'" width="80">数量</th>
-						<th data-options="field:'attr1',align:'center'" width="150">总价格</th>
-						<th data-options="field:'status',align:'center'" width="60">商品状态</th>
+						<th data-options="field:'itemid',align:'center'" width="16%">订单编号</th>
+						<th data-options="field:'productid',align:'center'" width="16%">用户编号 </th>
+						<th data-options="field:'listprice',align:'center'" width="16%">商品编号</th>
+						<th data-options="field:'unitcost',align:'center'" width="16%">数量</th>
+						<th data-options="field:'attr1',align:'center'" width="18%">总价格</th>
+						<th data-options="field:'status',align:'center'" width="18%">商品状态</th>
 					</tr>
 				</thead>
 			</table>

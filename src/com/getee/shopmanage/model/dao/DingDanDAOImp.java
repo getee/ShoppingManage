@@ -5,17 +5,8 @@ import java.util.ArrayList;
 import com.getee.shopmanage.model.bean.User;
 import com.getee.shopmanage.model.bean.Wine;
 
-public class DdDAOImp extends BaseDAOImp implements DdDAO {
-	
-     
-     
-	/*
-	 * 分页获取,根据用户ID(uid)获取订单信息
-     * @param 用户id
-     * @return 该用户添加的订单，酒的信息
-	 * (non-Javadoc)
-	 * @see com.getee.shopmanage.model.dao.DdDAO#getUserWine(int, int, int)
-	 */
+public class DingDanDAOImp implements DingDanDAO {
+
 	@Override
 	public ArrayList<Wine> getUserWine(int uid, int page, int count) {
 		// TODO Auto-generated method stub

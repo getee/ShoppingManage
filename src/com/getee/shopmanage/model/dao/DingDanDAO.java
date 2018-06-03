@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.getee.shopmanage.model.bean.User;
 import com.getee.shopmanage.model.bean.Wine;
 
-public interface DdDAO {
+public interface DingDanDAO {
 	 /**
      * 分页获取,根据用户ID(uid)获取订单信息
      * @param 用户id
