@@ -7,7 +7,7 @@ public class Wine {
     private double price;
     private String detail;
     private String picture;
-    
+    private String picture4;
     public int getId() {
         return id;
     }
@@ -44,17 +44,25 @@ public class Wine {
     public void setPicture(String picture) {
         this.picture = picture;
     }
+    public String getPicture4() {
+        return picture4;
+    }
+    public void setPicture4(String picture4) {
+        this.picture4 = picture4;
+    }
     @Override
     public String toString() {
         return "Wine [id=" + id + ", name=" + name + ", kind=" + kind
                 + ", price=" + price + ", detail=" + detail + ", picture="
-                + picture + "]";
+                + picture + ", picture4=" + picture4 + "]";
     }
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + id;
+        result = prime * result + ((kind == null) ? 0 : kind.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
     @Override
@@ -67,6 +75,16 @@ public class Wine {
             return false;
         Wine other = (Wine) obj;
         if (id != other.id)
+            return false;
+        if (kind == null) {
+            if (other.kind != null)
+                return false;
+        } else if (!kind.equals(other.kind))
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
             return false;
         return true;
     }
