@@ -10,6 +10,9 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/json.jar"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/json-org-0.0.1.jar"/>
+=======
+>>>>>>> refs/remotes/origin/master
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
