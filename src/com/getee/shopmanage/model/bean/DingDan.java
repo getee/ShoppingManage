@@ -4,10 +4,9 @@ public class DingDan {
 	private  int dd_id;
 	private  int user_id;
 	private  int wine_id;
-	private  String state;
+	private  int state;
 	private  int  number;
-	private  double price;
-	
+	private  float prices;
 	
 	public int getDd_id() {
 		return dd_id;
@@ -27,10 +26,10 @@ public class DingDan {
 	public void setWine_id(int wine_id) {
 		this.wine_id = wine_id;
 	}
-	public String getState() {
+	public int getState() {
 		return state;
 	}
-	public void setState(String state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 	public int getNumber() {
@@ -39,36 +38,28 @@ public class DingDan {
 	public void setNumber(int number) {
 		this.number = number;
 	}
-	public double getPrice() {
-		return price;
+	public float getPrices() {
+		return prices;
 	}
-	public void setPrice(double price) {
-		this.price = price;
+	public void setPrices(float prices) {
+		this.prices = prices;
 	}
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "DingDan [dd_id=" + dd_id + ", user_id=" + user_id + ", wine_id=" + wine_id + ", state=" + state
-				+ ", number=" + number + ", price=" + price + "]";
+				+ ", number=" + number + ", price=" + prices + "]";
 	}
-	
-	
-	public DingDan(int dd_id, int user_id, int wine_id, String state, int number, double price) {
+	public DingDan(int dd_id, int user_id, int wine_id, int state, int number, float price) {
 		super();
 		this.dd_id = dd_id;
 		this.user_id = user_id;
 		this.wine_id = wine_id;
 		this.state = state;
 		this.number = number;
-		this.price = price;
-	}
-	
-	public DingDan() {
-		super();
-		
+		this.prices = prices;
 	}
 		
 }

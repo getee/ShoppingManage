@@ -15,23 +15,50 @@
 </head>
 <body>
 
-<div class="easyui-layout" style="width:100%;height:700px;">
+<!-- <div class="easyui-layout" style="width:1050px;height:700px;">
 <div data-options="region:'center',iconCls:'icon-ok'">
 			<table class="easyui-datagrid"
 					data-options="url:'datagrid_data1.json',method:'get',border:false,singleSelect:true,fit:true,fitColumns:true">
 				<thead>
 					<tr>
-						<th data-options="field:'itemid',align:'center'" width="16%">订单编号</th>
-						<th data-options="field:'productid',align:'center'" width="16%">用户编号 </th>
+						<th data-options="field:'itemid',align:'center'" width="14%">订单编号</th>
+						<th data-options="field:'productid',align:'center'" width="14%">用户编号 </th>
 						<th data-options="field:'listprice',align:'center'" width="16%">商品编号</th>
 						<th data-options="field:'unitcost',align:'center'" width="16%">数量</th>
-						<th data-options="field:'attr1',align:'center'" width="18%">总价格</th>
-						<th data-options="field:'status',align:'center'" width="18%">商品状态</th>
+						<th data-options="field:'attr1',align:'center'" width="16%">总价格</th>
+						<th data-options="field:'status',align:'center'" width="16%">商品状态</th>
+						<th data-options="field:'status',align:'center'" width="8%">
+						<div style="padding:5px 0;margin-left:-45px;">
+		                   <input data-options="iconCls:'icon-add'，align:'center'" type="submit" value="添加"></input></div> </th>
 					</tr>
 				</thead>
 			</table>
 		</div>
 		</div>
-</div>
+</div> -->
+
+
+<table id="tt" class="easyui-datagrid" style="width:1050px;height:500px"
+		url="datagrid2_getdata.php"
+	    iconCls="icon-save"
+		rownumbers="true" pagination="true" >
+	<thead>
+		<tr>
+			<th field="ddid" width="14%" align="center">订单编号 </th>
+			<th field="userid" width="14%" align="center">用户编号</th>
+			<th field="productid" width="16%" align="center">商品编号</th>
+			<th field="number" width="16%" align="center">数量</th>
+			<th field="price" width="16%" align="center">价格</th>
+			<th field="status" width="16%" align="center">商品状态</th>
+			<th data-options="field:'status',align:'center'" width="8%">
+						<div style="padding:5px 0;margin-left:-45px;">
+		                   <input data-options="iconCls:'icon-add'，align:'center'" type="submit" value="添加"></input></div> </th>
+		</tr>
+	</thead>
+</table>
+
+
+
 </body>
 </html>
+

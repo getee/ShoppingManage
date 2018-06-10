@@ -1,34 +1,56 @@
 package com.getee.shopmanage.model.dao;
 
+
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.getee.shopmanage.model.bean.DingDan;
 import com.getee.shopmanage.model.bean.User;
 import com.getee.shopmanage.model.bean.Wine;
 
-public class DingDanDAOImp implements DingDanDAO {
+public class DingDanDAOImp extends BaseDAOImp implements DingDanDAO {
 
+	
+	/*
+	 * 添加新的订单
+	 * (non-Javadoc)
+	 * @see com.getee.shopmanage.model.dao.DingDanDAO#addDD(int, int, int)
+	 */
 	@Override
-	public ArrayList<Wine> getUserWine(int uid, int page, int count) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean addDD(int user_id,int dd_id) {
+		Statement sta=getSta();
+		String sql="insert into shop.dingdn(user_id,dd_id) values("+user_id+","+dd_id+")";
+		try {
+			sta.executeUpdate(sql);
+		} catch (SQLException e) {
+	
+			e.printStackTrace();
+			return false;
+		}
+		 disposeResource(sta);
+		
+		return true;
 	}
 
-	@Override
-	public ArrayList<User> getWineUser(int wid, int page, int count) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean addDD(int uid, int wid, int number) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean delDD(int id) {
-		// TODO Auto-generated method stub
-		return false;
+	
+	/*
+	 *删除订单
+	 *(non-Javadoc)
+	 * @see com.getee.shopmanage.model.dao.DingDanDAO#delDD(int)
+	 */
+		@Override
+	public boolean delDD(int dd_id) {
+			 Statement sta=getSta();
+		        String sql="delete from shop.dingdan where dd_id="+dd_id+"";
+		        try {
+		            sta.executeUpdate(sql);
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		            return false;
+		        }
+		        disposeResource(sta);
+			     return true;
 	}
 
 }
