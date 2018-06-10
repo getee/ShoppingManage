@@ -18,18 +18,16 @@ public class DingDanDAOImp extends BaseDAOImp implements DingDanDAO {
 	 * @see com.getee.shopmanage.model.dao.DingDanDAO#addDD(int, int, int)
 	 */
 	@Override
-	public boolean addDD(int user_id,int dd_id) {
-		Statement sta=getSta();
-		String sql="insert into shop.dingdn(user_id,dd_id) values("+user_id+","+dd_id+")";
+	public boolean addDD(int user_id,int dd_id,int wine_id) {
+		Statement sta=getSta();//获取连接
+		String sql="insert into shop.dingdan(user_id,dd_id,wine_id) values("+user_id+","+dd_id+","+wine_id+")";//添加数据
 		try {
 			sta.executeUpdate(sql);
 		} catch (SQLException e) {
-	
 			e.printStackTrace();
 			return false;
 		}
 		 disposeResource(sta);
-		
 		return true;
 	}
 

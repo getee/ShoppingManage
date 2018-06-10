@@ -13,7 +13,7 @@ public interface DingDanDAO {
    * @param number
    * @return
    */
-    public boolean addDD(int user_id, int dd_id);
+    public boolean addDD(int user_id, int dd_id,int wine_id);
     
     /**
      * 删除订单
