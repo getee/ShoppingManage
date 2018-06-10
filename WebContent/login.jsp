@@ -28,8 +28,8 @@
             </div>
             <div style="margin-bottom:20px">
                 <input class="easyui-textbox" name="code"  maxlength="4" style="width:60%" data-options="label:'验证码:'">
-                <!-- <img id="code" src="admin/CodeAction.action" style="width: 90px;height: 30px;position: relative;top: 11px;margin-left: 10px;" /> -->
-            </div>
+               <!--   <img id="code" src="admin/CodeAction.action" style="width: 90px;height: 30px;position: relative;top: 11px;margin-left: 10px;" /> -->
+               </div>
         </form>
         <div style="text-align:center;padding:5px 0">
             <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">登陆</a>
@@ -48,7 +48,7 @@
 	    $('#dlg').dialog('close');//网页一打开让提示框消失
 
 	    $("#code").click(function(){
-	       // $(this).attr("src","admin/CodeAction.action?time="+new Date())
+	    //   $(this).attr("src","admin/CodeAction.action?time="+new Date())
 	    })
 	    
 	})
