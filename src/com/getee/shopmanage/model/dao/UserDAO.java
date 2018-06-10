@@ -9,6 +9,8 @@ public interface UserDAO {
      * 根据ID获取用户数据
      */
     public User getIDUser(int id);
+    
+    public ArrayList<User> getIDUser(String val);
 
     /**
      * 根据Name获取用户数据(每个用户名都是唯一的)

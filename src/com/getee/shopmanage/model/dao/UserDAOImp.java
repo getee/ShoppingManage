@@ -160,6 +160,12 @@ public class UserDAOImp extends BaseDAOImp implements UserDAO {
 		return false;
 	}
 
+	@Override
+	public User getIDUser(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }

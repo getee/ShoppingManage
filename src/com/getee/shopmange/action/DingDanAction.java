@@ -6,10 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.getee.shopmanage.model.bean.DingDan;
-import com.getee.shopmanage.model.dao.DingDanDAO;
-import com.getee.shopmanage.model.dao.DingDanDAOImp;
-import com.getee.shopmanage.model.dao.UserDAO;
-import com.getee.shopmanage.model.dao.WineDAO;
+import com.getee.shopmanage.model.dao.*;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class DingDanAction extends ActionSupport{
@@ -44,7 +41,7 @@ public void setwDAO(WineDAO wDAO) {
 
 public DingDanAction() {
 	super();
-	wDAO=new DingDanDAOImp();
+	wDAO=new WineDaoImp();
 	uDAO=new UserDAOImp();
 	ddDAO=new DingDanDAOImp();
 }
@@ -56,7 +53,9 @@ public DingDanAction() {
  * 根据用户ID来获取该用户的订单ID，从而获得该订单对应的商品id；
  */
 public void addDD(int user_id, int dd_id, int wine_id){
-	ArrayList<DingDan>  dingdan=ddDAO.addDD(user_id,dd_id,wine_id);
+
+	boolean isOK=ddDAO.addDD(user_id,dd_id,wine_id);
+	ArrayList<DingDan>  dingdan=null;
 	JSONArray  js=new JSONArray();
 	try {
 		for(DingDan d:dingdan){
@@ -72,16 +71,6 @@ public void addDD(int user_id, int dd_id, int wine_id){
 		e.printStackTrace();
 	}
   }
-try {
-
-	}
-} catch (Exception e) {
-	e.printStackTrace();
-}
-}
-
-
-
 
 
 
