@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 
 public class ConnectSQL {
-    String url="jdbc:mysql://rm-wz97w0rps07c1wrg0ao.mysql.rds.aliyuncs.com:3306/shop?zeroDateTimeBehavior=convertToNull";
+    String url="jdbc:mysql://rm-wz97w0rps07c1wrg0ao.mysql.rds.aliyuncs.com:3306?zeroDateTimeBehavior=convertToNull";
     String user="admin";
     String pass="admin";
     
@@ -32,7 +32,7 @@ public class ConnectSQL {
             //String sql="delete from shop.users where user_id="+u.id;
 
             Statement sta=con.createStatement();//创建会话
-            ResultSet rs=sta.executeQuery("select * FROM wine limit 0,5");
+            ResultSet rs=sta.executeQuery("select * FROM shop.wine limit 0,5");
 
             while(rs.next()){
                 System.out.println(rs.getInt("wine_id")+rs.getString("wine_name")+"="+rs.getString("kind"));
