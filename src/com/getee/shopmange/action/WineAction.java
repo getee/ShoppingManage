@@ -3,9 +3,13 @@ package com.getee.shopmange.action;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.getee.shopmanage.model.bean.Wine;
 import com.getee.shopmanage.model.dao.WineDaoImp;
@@ -13,7 +17,12 @@ import com.getee.shopmanage.model.dao.WineDaoImp;
 public class WineAction {
 	private Wine w;
 	private WineDaoImp wdp;
-	private File myFile;
+	private File myFile; //得到上传的文件
+	private String myFileContentType;//得到文件的类型
+	private String myFileFileName;//得到文件的名称
+	
+	
+
 	public File getMyFile() {
 		return myFile;
 	}
@@ -38,19 +47,6 @@ public class WineAction {
 		this.myFileFileName = myFileFileName;
 	}
 
-	public String getDestPath() {
-		return destPath;
-	}
-
-	public void setDestPath(String destPath) {
-		this.destPath = destPath;
-	}
-	private String myFileContentType;
-	private String myFileFileName;
-	private String destPath;
-
-	
-
 	public WineAction() {
 		wdp=new WineDaoImp();
 	}
@@ -62,34 +58,43 @@ public class WineAction {
 	public void setW(Wine w) {
 		this.w = w;
 	}
-
-		public void uploadFileAction() {
-			destPath = "C:/work/";
-
-		      try{
-		     	 System.out.println("Src File name: " + myFile);
-		     	 System.out.println("Dst File name: " + myFileFileName);
-		     	    	 
-		     	 File destFile  = new File(destPath, myFileFileName);
-		    	 FileUtils.copyFile(myFile, destFile);
-		  
-		      }catch(IOException e){
-		         e.printStackTrace();
-		       
-		      }
-			
+	/**
+	 * 实现文件的上传
+	 */
+	public void  fileUploadAction() {
+		//myFile为临时的路径名+文件名
+		//myFileFileName为文件名
+		String dir=ServletActionContext.getServletContext().getRealPath("/");//获取真实路径
+		String saveDir=dir+"picture";//上传文件的保存的相对路径
+		//用UUID随机生成一个不重复的字符串来重命名
+		String uuid=UUID.randomUUID().toString().replaceAll("-", "");
+		//用UUID命名文件+获取文件的后缀名
+		myFileFileName=uuid+"."+myFileFileName.substring(myFileFileName.lastIndexOf(".")+1);
+		File destFile=new File(saveDir, myFileFileName);
+		System.out.println("myFile:"+myFile);
+		System.out.println("myFileFileName:"+myFileFileName);
+		
+		 //if(!destFile.exists())destFile.mkdirs();
+		try {
+			FileUtils.copyFile(myFile, destFile);
+			System.out.println("上传成功");
+		} catch (IOException e) {
+			System.out.println("上传失败");
+			e.printStackTrace();
 		}
+	}
+	
 	/**
 	 * 添加wine的方法
 	 */
 	public void addWine() {
-		uploadFileAction();
+		fileUploadAction();
 		Wine addWine=new Wine();
 		addWine.setName(w.getName());
 		addWine.setKind(w.getKind());
 		addWine.setPrice(w.getPrice());
 		addWine.setDetail(w.getDetail());
-		addWine.setPicture(w.getPicture());
+		addWine.setPicture("picture/"+myFileFileName);
 		addWine.setPicture4(w.getPicture4());
 		System.out.println(addWine.toString());
 		boolean addResult=wdp.addWine(addWine);
@@ -111,4 +116,93 @@ public class WineAction {
 		
 	}
 
-}
+	public void searchWine() {
+		System.out.println("进入 修改"+w.getId());
+		Wine willUpdateWine=wdp.getIDWine(w.getId());
+		if(willUpdateWine!=null) {
+			JSONArray jsonarr=new JSONArray();
+			JSONObject jsono=new JSONObject();
+			try {
+				jsono.put("name", willUpdateWine.getName());
+				jsono.put("kind", willUpdateWine.getKind());
+				jsono.put("price", willUpdateWine.getPrice());
+				jsono.put("detail", willUpdateWine.getDetail());
+				jsono.put("picture", willUpdateWine.getPicture());
+				jsono.put("picture", willUpdateWine.getPicture4());
+				jsonarr.put(jsono);
+				System.out.println(jsonarr.toString());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
+			try {
+				PrintWriter out=ServletActionContext.getResponse().getWriter();
+				out.write(jsonarr.toString());
+				out.flush();
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else {
+			ServletActionContext.getResponse().setContentType("text/html;charset=utf-8");
+			try {
+				PrintWriter out=ServletActionContext.getResponse().getWriter();
+				out.write("null");
+				out.flush();
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+	}
+	public void updateWine() {
+		try {
+			
+			fileUploadAction();
+			Wine  updateWine=new Wine();
+			updateWine.setId(w.getId());
+			updateWine.setName(w.getName().trim());
+			updateWine.setKind(w.getKind().trim());
+			updateWine.setPrice(w.getPrice());
+			updateWine.setDetail(w.getDetail().trim());
+			updateWine.setPicture("picture/"+myFileFileName);
+			updateWine.setPicture4(w.getPicture4());
+			System.out.println(updateWine.toString());
+			boolean updateResult=wdp.update(updateWine);
+			if(updateResult) {
+				System.out.println("修改成功");
+			}else {
+				System.out.println("修改失败");
+				
+			}
+		}catch(Exception e) {
+				e.printStackTrace();
+				Wine  updateWine=new Wine();
+				updateWine.setId(w.getId());
+				updateWine.setName(w.getName().trim());
+				updateWine.setKind(w.getKind().trim());
+				updateWine.setPrice(w.getPrice());
+				updateWine.setDetail(w.getDetail().trim());
+				updateWine.setPicture("picture/"+myFileFileName);
+				updateWine.setPicture4(w.getPicture4());
+				System.out.println(updateWine.toString());
+				boolean updateResult=wdp.update(updateWine);
+				if(updateResult) {
+					System.out.println("修改成功");
+				}else {
+					System.out.println("修改失败");
+					
+				}
+		}
+		
+		
+			
+		}
+		
+		
+	}
+
+

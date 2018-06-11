@@ -4,8 +4,9 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 	<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
-	<constant name="struts.devMode" value="true" />
+ <constant name="struts.devMode" value="true" />
    <constant name="struts.multipart.maxSize" value="1000000" />
+
 <package name="wine" extends="struts-default">
 <action name="Wine" class="com.getee.shopmange.action.WineAction">
 <result></result>

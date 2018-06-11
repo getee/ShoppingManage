@@ -14,8 +14,25 @@ public class WineDaoImp extends BaseDAOImp implements WineDAO {
 
 	@Override
 	public Wine getIDWine(int id) {
-		// TODO Auto-generated method stub
-		return null;
+			Wine w=null;
+			String sql="select * from shop.wine where wine_id='"+id+"'";
+			try {
+				ResultSet rs=getSta().executeQuery(sql);
+				while(rs.next()) {
+					w=new Wine();
+					w.setId(rs.getInt("wine_id"));
+					w.setName(rs.getString("wine_name"));
+					w.setKind(rs.getString("kind"));
+					w.setPrice(rs.getDouble("price"));
+					w.setDetail(rs.getString("detail"));
+					w.setPicture(rs.getString("picture"));
+					w.setPicture4(rs.getString("picture4"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		return w;
 	}
 
 	@Override
@@ -63,7 +80,15 @@ public class WineDaoImp extends BaseDAOImp implements WineDAO {
 		 */
 	@Override
 	public boolean update(Wine w) {
-		String sql="update shop.wine set wine_name='"+w.getName()+"',kind='"+w.getKind()+"',price='"+w.getPrice()+"',detail='"+w.getDetail()+"',picture='"+w.getPicture()+"',picture4='"+w.getPicture4()+"' where wine_id='"+w.getId()+"'";
+		String sql=null;
+		if(w.getPicture().equals("picture/null")) {
+			sql="update shop.wine set wine_name='"+w.getName()+"',kind='"+w.getKind()+"',price='"+w.getPrice()+"',detail='"+w.getDetail()+"',picture4='"+w.getPicture4()+"' where wine_id='"+w.getId()+"'";
+			System.out.println("没有修改图片");
+		}else {
+			sql="update shop.wine set wine_name='"+w.getName()+"',kind='"+w.getKind()+"',price='"+w.getPrice()+"',detail='"+w.getDetail()+"',picture='"+w.getPicture()+"',picture4='"+w.getPicture4()+"' where wine_id='"+w.getId()+"'";
+			System.out.println("修改了图片");
+			
+		}
 		try {
 			getSta().executeUpdate(sql);
 		} catch (SQLException e) {

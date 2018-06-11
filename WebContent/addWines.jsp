@@ -35,11 +35,11 @@
 	    		</tr>
 	    		<tr>
 	    			<td>商品图片:</td>
-	    			<td><input id="picture" class="easyui-filebox" name="file1" data-options="prompt:'Choose a file...'" style="width:100%"></td>
+	    			<td><input id="picture" class="easyui-filebox" name="myFile" data-options="prompt:'Choose a file...'" style="width:100%"></td>
 	    		</tr>
 	    		<tr>
 	    			<td>更多图片:</td>
-	    			<td><input class="easyui-textbox" name="picture4" id="detail" data-options="multiline:true" style="height:60px"></input></td>
+	    			<td><input class="easyui-textbox" name="w.picture4" id="detail" data-options="multiline:true" style="height:60px"></input></td>
 	    		</tr>
 	    		
 	    	
@@ -77,8 +77,11 @@
 		function submitForm(){
 			$('#ff').form('submit',{
 				onSubmit:function(){
-					 var file =$("#picture").filebox('getValue');  
-		
+					// var file =$("#picture").filebox('getValue');  
+					$.get('Wine!addWine.action',function(data){
+							$.messager.alert('Info','操作成功');
+					
+					});
 					return $(this).form('enableValidation').form('validate');
 				}
 			});
