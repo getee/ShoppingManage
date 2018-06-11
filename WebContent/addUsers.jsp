@@ -17,10 +17,11 @@
 <body>
 	<div style="margin:20px 0;"></div>
 	<div style="width:800px;margin: auto;">
-		<form id="ff" action="AddUserAction!AddUser.action" method="post">
-			<div style="margin-bottom:20px;width:200px;height:400px;">
-			<img alt="" src="themes/icons/moren.jpg" width=200px height=300px>
-			<input type="file" name="add.picture"/>
+		<form id="ff" action="AddUserAction!AddUser.action" method="post" enctype="multipart/form-data">
+			<div style="margin-bottom:20px;width:200px;height:400px;position: relative;top:50px;">
+				<img alt="" src="" width=200px height=300px/>
+				 <s:file  name="myfile"  label=""></s:file>
+				<input type="hidden" name="" value=""/>
 			</div>
 			<div style="width:400px;position:relative;left:300px;top:-350px;">
 				<div style="margin-bottom:20px">
@@ -39,11 +40,13 @@
 							<option value="${p }">${p }</option>
 						</c:forEach>
 					</select>
+					
 				</div>
 				<div style="margin-bottom:20px">
-					<select id="shi" class="easyui-combobox" name="add.city " label="城市:" style="width:100%" >
+					<select id="shi" class="easyui-combobox" name="" label="城市:" style="width:100%" >
 						<option value="">请选择城市</option>
 					</select>
+					<input id="city" type="hidden" name="add.city"/>
 				</div>
 				<div style="text-align:center;padding:5px 0">
 					<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">Submit</a>
@@ -52,13 +55,8 @@
 			</div>
 		</form>
 		</div>
-		<%-- <s:iterator  value='#session.shenshi' id='entry'>
-				<s:iterator value="#entry.value" id="s">
-					
-					<s:property value="s"/>
-				</s:iterator>
-				<br>
-		</s:iterator> --%>
+
+	<!--根据省显示市区  -->
 		<script type="text/javascript">
 		
 			$(document).ready(function () {
@@ -86,6 +84,18 @@
 				});
 		
 		</script>
+		<!--由于后台取不到city值，将其封装在一个隐藏域中  -->
+		<script type="text/javascript">
+			$(function(){
+				$("#shi").combobox({
+
+					onChange: function () {
+						var shi=$(this).val();
+						$("#city").attr("value",shi);
+					}
+				});
+			});
+		</script>
 	<script>
 		function submitForm(){
 			$('#ff').submit();
@@ -106,8 +116,19 @@
 		</script>
 	
 	</c:if>
-
-
-
+	<c:if test="${requestScope.jieguo!=null }">
+	<c:choose>
+		<c:when test="${requestScope.jieguo==true }">
+			<script type="text/javascript">
+			$.messager.alert('提示','添加成功!','info');
+			</script>
+		</c:when>
+		<c:otherwise>
+			<script type="text/javascript">
+			$.messager.alert('提示','添加失败!','error');
+			</script>
+		</c:otherwise>
+	</c:choose>
+	</c:if>
 </body>
 </html>

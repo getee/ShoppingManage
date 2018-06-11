@@ -9,8 +9,5 @@
             <result name="success" type="redirect">/index.jsp</result>
             <result name="fail">/login.jsp</result>
        </action>
-       <action name="AddUserAction" class="com.getee.shopmange.action.UserAction">
-       		  <result name="success">/addUsers.jsp</result>
-       </action>
     </package>
 </struts>
