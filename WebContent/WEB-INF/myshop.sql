@@ -22,7 +22,9 @@ CREATE TABLE comments
 	-- 0 好评
 	-- 1 中评
 	-- 2 差评
-	state int DEFAULT 0,
+	state int DEFAULT 0 COMMENT '0 好评
+1 中评
+2 差评',
 	content text,
 	PRIMARY KEY (com_id)
 );
@@ -30,19 +32,20 @@ CREATE TABLE comments
 
 CREATE TABLE dingdan
 (
-	dd_id int NOT NULL AUTO_INCREMENT,
+	-- 订单id不唯一，具有相同id的视为同一订单
+	dd_id int NOT NULL COMMENT '订单id不唯一，具有相同id的视为同一订单',
 	user_id int NOT NULL,
-	-- 把所有商品id都添加用";"分割.例：002;092
-	wines_ids varchar(99) NOT NULL COMMENT '把所有商品id都添加用";"分割.例：002;092',
+	wine_id int NOT NULL,
 	-- 0 待发货
 	-- 1 快递中
 	-- 2 已送达
-	state int DEFAULT 0 NOT NULL ,
+	state int DEFAULT 0 NOT NULL COMMENT '0 待发货
+1 快递中
+2 已送达',
 	-- 购买数量
 	number int DEFAULT 1 NOT NULL COMMENT '购买数量',
 	-- 总价格
-	prices float NOT NULL COMMENT '总价格',
-	PRIMARY KEY (dd_id)
+	prices float NOT NULL COMMENT '总价格'
 );
 
 
