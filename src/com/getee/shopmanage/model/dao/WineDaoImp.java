@@ -12,6 +12,7 @@ public class WineDaoImp extends BaseDAOImp implements WineDAO {
      * 
      * @return wine集合
      */
+	
     public ArrayList<Wine> getKindPage(String kind, int page, int count){
     	int startCount=(page-1)*count;
     	String sql="select * from shop.wine where kind='"+kind+"' limit " + startCount+" ,"+count;

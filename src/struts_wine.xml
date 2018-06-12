@@ -6,7 +6,7 @@
 <constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
 	 <package name="Wine" extends="struts-default" abstract="false" namespace="/wine">
        <action name="WineAction" class="com.getee.shopmange.action.WineAction"  >
-            
+      
        </action>
     </package>
 </struts>
