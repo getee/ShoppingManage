@@ -20,7 +20,7 @@ public interface WineDAO {
      * 
      * @return wine集合
      */
-    public ArrayList<Wine> getWinePage(int page, int count);
+    ArrayList<Wine> listWineByPage(int page, int count);
 
     /**
      * 按种类分页获取酒信息
@@ -59,4 +59,6 @@ public interface WineDAO {
      * @return
      */
     public boolean delete(int id);
+
+	
 }
