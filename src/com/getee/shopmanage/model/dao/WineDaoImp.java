@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import com.getee.shopmanage.model.bean.Wine;
 
-public class WineDaoImp extends BaseDAOImp implements BaseDAO {
+public class WineDaoImp extends BaseDAOImp implements WineDAO {
 	 /**
      * 按种类分页获取酒信息
      * 
@@ -61,5 +61,41 @@ public class WineDaoImp extends BaseDAOImp implements BaseDAO {
 		}
 		disposeResource(  getCon(),getSta(),rs);
 		return winelist;
+	}
+
+	@Override
+	public Wine getIDWine(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<Wine> getWinePage(int page, int count) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addWine(Wine w) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(Wine w) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(int id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
