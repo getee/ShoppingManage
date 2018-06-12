@@ -18,7 +18,7 @@
 	    	<table cellpadding="5">
 	    		<tr>
 	    			<td>商品编号:</td>
-	    			<td><input id="tt"  name="id" style="width:100%" data-options="
+	    			<td><input id="tt"  name="w.id" style="width:100%" data-options="
 			prompt: '请输入修改的ID!',
 			required:true,
 			icons:[{
@@ -117,15 +117,21 @@
 	</div>
 	<script>
 	
-		function findWine(){
-			$.messager.alert('Info',$("#wineid").val())
-		}	
+	
 	
 		function submitForm(){
 			$('#ff').form('submit',{
 				onSubmit:function(){
 					// var file =$("#picture").filebox('getValue');  
+					var id=$("#tt").textbox('getValue');
+						if(id==''){
+					$.messager.alert('Info','请输入id');
+							
+						}else{
 					$.messager.alert('Info','操作成功');
+							
+						}
+					
 					return $(this).form('enableValidation').form('validate');
 				}
 			});
