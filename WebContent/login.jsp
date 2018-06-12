@@ -12,6 +12,9 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
     
+    <link rel="stylesheet" href="css/codestyle.css">
+    <script type="text/javascript" src="js/codestyle.js"></script>
+    
 </head>
 <body>
 <canvas id="c_n9" width="1920" height="990" style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 0.5;"></canvas>
@@ -26,9 +29,24 @@
             <div style="margin-bottom:20px">
                 <input class="easyui-passwordbox" name="u.password"  style="width:100%" data-options="label:'密码:',required:true">
             </div>
-            <div style="margin-bottom:20px">
-                <input class="easyui-textbox" name="code"  maxlength="4" style="width:60%" data-options="label:'验证码:'">
+            <div style="margin-bottom:20px">                
                 <!-- <img id="code" src="admin/CodeAction.action" style="width: 90px;height: 30px;position: relative;top: 11px;margin-left: 10px;" /> -->
+                <div id="slideBar" class="zhuce_right" style="left:100px;"></div>
+                <script type="text/javascript">
+                    var codeFlag=false;
+			        var dataList = ["0","1"];
+			        var options = {
+			            dataList: dataList,
+			            success:function(){  
+			                codeFlag=true;
+			            },
+			            fail: function(){
+			                codeFlag=false;
+			            }
+			        };
+			        SliderBar("slideBar", options);
+			    </script>
+            
             </div>
         </form>
         <div style="text-align:center;padding:5px 0">
@@ -39,7 +57,12 @@
 </div>
 <script>
 	function submitForm(){
-	    $('#ff').submit();
+		if(!codeFlag){
+            alert("请进行滑块验证");
+        }else{
+        	$('#ff').submit();
+        }
+	    
 	}
 	function clearForm(){
 	    $('#ff').form('clear');
