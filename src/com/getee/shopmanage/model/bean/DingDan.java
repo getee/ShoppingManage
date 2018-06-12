@@ -52,6 +52,7 @@ public class DingDan {
 		return "DingDan [dd_id=" + dd_id + ", user_id=" + user_id + ", wine_id=" + wine_id + ", state=" + state
 				+ ", number=" + number + ", price=" + prices + "]";
 	}
+
 	public DingDan(int dd_id, int user_id, int wine_id, int state, int number, float price) {
 		super();
 		this.dd_id = dd_id;
@@ -61,5 +62,8 @@ public class DingDan {
 		this.number = number;
 		this.prices = prices;
 	}
+  public DingDan(){
+    super();
+  }
 		
 }

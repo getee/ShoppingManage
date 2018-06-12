@@ -1,5 +1,8 @@
 package com.getee.shopmange.action;
 
+
+import java.io.UnsupportedEncodingException;
+
 import java.util.ArrayList;
 
 import org.apache.struts2.ServletActionContext;
@@ -14,6 +17,25 @@ public class WineAction {
 	private Wine wine;
 	private String searchValue;
 	private String searchKind;
+
+	private String page;
+	private String rows;
+	public String getPage() {
+		return page;
+	}
+
+	public void setPage(String page) {
+		this.page = page;
+	}
+
+	public String getRows() {
+		return rows;
+	}
+
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
+
 	WineDaoImp dao=null;
 	
 	
@@ -47,22 +69,38 @@ public class WineAction {
 		this.searchKind = searchKind;
 	}
 
-	public String execute() {
-		
-		return "success";
+
+	
+	private int page;
+	private int rows;
+	private int id;
+	public int getPage() {
+		return page;
 	}
-	public void searchWine() {
-		System.out.println("hi");
-		ArrayList<Wine> winelist=null;
-		
-		if(searchKind.equals("kind")) {
-			winelist=dao.getKindPage(searchValue, 1, 3);
-		}else {
-			winelist=dao.getNamePage(searchValue, 1, 3);
-		}
-		
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getRows() {
+		return rows;
+	}
+	public void setRows(int rows) {
+		this.rows = rows;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	/**
+	 * 分页显示查询酒信息的方法
+	 */
+	public void listWinesByPage() {
+		ArrayList<Wine> wines=dao.listWineByPage(page, rows);
+		System.out.println(page);
+		System.out.println(rows);
 		JSONArray  js=new JSONArray();
-		for(Wine c:winelist) {
+		for(Wine c:wines) {
 			try {
 				JSONObject  j=new JSONObject();
 				j.put("wine_id", c.getId());
@@ -82,6 +120,78 @@ public class WineAction {
 			Responser.responseToJson(ServletActionContext.getResponse(), ServletActionContext.getRequest(), js.toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 根据id删除酒信息的方法
+	 */
+	public void deleteWineInfoByWineId() {
+		System.out.println(id);
+		boolean result=dao.delete(id);
+
+		try {
+			Responser.responseToJson(ServletActionContext.getResponse(), ServletActionContext.getRequest(), result+"");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public String execute() {
+		
+		return "success";
+	}
+
+	/**
+	 * 这是商品管理->搜索商品业务
+	 * 可以按照种类与名字查询
+	 */
+	public void searchWine() {
+		//String value=null;
+		ArrayList<Wine> winelist=null;
+		System.out.println(searchValue);
+		/*try {//easyui传过来的种类kind是乱码的，故转了一下
+			value=new String(searchValue.getBytes("ISO-8859-1"),"UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}*/
+		
+System.out.println(page);
+System.out.println(rows);
+
+		//用来判断搜索的方式,为kind是按种类，否则为名字
+		if(searchKind.equals("kind")) {
+			winelist=dao.getKindPage(searchValue,Integer.parseInt(page), Integer.parseInt(rows));
+		}else {
+			System.out.println("name");
+			winelist=dao.getNamePage(searchValue,Integer.parseInt(page), Integer.parseInt(rows));
+		}
+		//将查出来的数据放到json中
+System.out.println("1----");
+		JSONArray  js=new JSONArray();
+		for(Wine c:winelist) {
+			try {
+		System.out.println("2----");
+				JSONObject  j=new JSONObject();
+				j.put("wine_id", c.getId());
+				j.put("wine_name", c.getName());
+				j.put("kind", c.getKind());
+				j.put("price", c.getPrice());
+				j.put("detail", c.getDetail());
+				j.put("picture", "<img src='"+c.getPicture()+"'  style='width:20px;height:20px'/>");
+				j.put("picture4", "<img src='"+c.getPicture4()+"'  style='width:20px;height:20px'/>");
+				js.put(j);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+System.out.println("3----");
+		try {
+			Responser.responseToJson(ServletActionContext.getResponse(), ServletActionContext.getRequest(), js.toString());
+		} catch (Exception e) {
+
 			e.printStackTrace();
 		}
 

@@ -2,12 +2,39 @@ package com.getee.shopmanage.model.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.getee.shopmanage.model.bean.Wine;
 
 public class WineDaoImp extends BaseDAOImp implements WineDAO {
-	 /**
+
+	 
+	/**
+     * 分页获取酒信息
+     * 
+     * @return wine集合
+     */
+	@Override
+	public ArrayList<Wine> listWineByPage(int page, int count) {
+		ArrayList<Wine> wines = new ArrayList<Wine>();// 定义一个集合存储查询出来的所有车辆信息
+		ResultSet rs = null;
+		try {
+			rs = getSta().executeQuery("select *  from   shop.wine order by wine_id desc   limit  "+(page-1)*count+" ,"+count);
+			while (rs.next()) {
+
+				wines.add(parsetResultToCar(rs));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return wines;
+	}
+	
+	
+	
+	/**
      * 按种类分页获取酒信息
      * 
      * @return wine集合
@@ -76,11 +103,13 @@ public class WineDaoImp extends BaseDAOImp implements WineDAO {
 		return 0;
 	}
 
+
 	@Override
 	public ArrayList<Wine> getWinePage(int page, int count) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	@Override
 	public boolean addWine(Wine w) {
@@ -94,9 +123,42 @@ public class WineDaoImp extends BaseDAOImp implements WineDAO {
 		return false;
 	}
 
+
+	 /**
+     * 删除酒信息
+     * 
+     * @return 
+     */
 	@Override
 	public boolean delete(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		int  n=0;
+		Statement sta=getSta();
+		try {
+			String sql="delete from  shop.wine where wine_id="+id;
+		    n=sta.executeUpdate(sql);
+		    System.out.println(sql);
+		    System.out.println(n);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return n>0?true:false;
+	}
+
+	public Wine parsetResultToCar(ResultSet rs) {
+		Wine c = null;
+		try {
+			c = new Wine();
+			c.setId(rs.getInt("wine_id"));
+			c.setName(rs.getString("wine_name"));
+			c.setKind(rs.getString("kind"));
+			c.setPrice(rs.getDouble("price"));
+			c.setDetail(rs.getString("detail"));
+			c.setPicture(rs.getString("picture"));
+			c.setPicture4(rs.getString("picture4"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return c;
+
 	}
 }
