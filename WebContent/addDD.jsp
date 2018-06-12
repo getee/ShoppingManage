@@ -3,7 +3,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
+
     <title>订单添加</title>
 	<link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="themes/icon.css">
@@ -12,6 +14,7 @@
     <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
 </head>
 <body>
+
 	<body style="margin: 0px; padding: 5px;">
 
 	<table id="dg" style="width:100%;height:300px" class="easyui-datagrid" fitColumns="true" fit="true"
@@ -41,12 +44,12 @@
         <form id="fm" method="post">
         	<table cellspacing="10px;">
         		<tr>
-        			<td>dd_id(订单ID)</td>
-        			<td><input name="dd_id" class="easyui-validatebox" required="true" style="width: 100px;"></td>
-        		</tr>
-        		<tr>
         			<td>user_id(用户ID)</td>
         			<td><input name="user_id" class="easyui-validatebox" required="true" style="width: 100px;"></td>
+        		</tr>
+            <tr>
+        			<td>dd_id(订单ID)</td>
+        			<td><input name="dd_id" class="easyui-validatebox" required="true" style="width: 100px;"></td>
         		</tr>
         		<tr>
         			<td>wine_id(商品号)</td>
@@ -97,16 +100,7 @@
 		$('#fm').form('clear');
 		url='DingDanAction!addDD.action';
 	}
-	
-	//修改订单
-	/*  function editDingDan(){
-		var row=$('#dg').datagrid('getSelected');
-		if(row){
-			$("#dlg").dialog('open').dialog('setTitle','修改订单');
-			$('#fm').form('load',row);
-			//url='DingDanAction!editDingDan?dd_id='+row.dd_id;
-		}
-	}  */
+
 	
 	//保存
 	function saveDD(){

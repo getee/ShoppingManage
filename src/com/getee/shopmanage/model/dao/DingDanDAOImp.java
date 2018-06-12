@@ -1,6 +1,7 @@
 package com.getee.shopmanage.model.dao;
 
 
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,7 +9,11 @@ import java.util.ArrayList;
 
 import com.getee.shopmanage.model.bean.DingDan;
 
+import com.getee.shopmanage.model.bean.User;
+import com.getee.shopmanage.model.bean.Wine;
+
 public class DingDanDAOImp extends BaseDAOImp implements DingDanDAO {
+
 	
 	/*
 	 * 添加新的订单
@@ -16,13 +21,14 @@ public class DingDanDAOImp extends BaseDAOImp implements DingDanDAO {
 	 * @see com.getee.shopmanage.model.dao.DingDanDAO#addDD(int, int, int)
 	 */
 	@Override
+
 	public boolean addDD(Object o) {
 		DingDan dd=(DingDan)o;
 		ResultSet rs=null;
 		boolean result=false;
 		System.out.println(dd.toString());
 		try {
-			rs=getSta().executeQuery("select dd_id from shop.dingdan where dd_id="+dd.getDd_id());
+			rs=getSta().executeQuery("select dd_id from shop.dingdan where dd_id="+dd.getDd_id()+" and user_id="+dd.getUser_id());
 			if(rs.next()){
 				result=false;	
 			}
@@ -35,6 +41,7 @@ public class DingDanDAOImp extends BaseDAOImp implements DingDanDAO {
 			e.printStackTrace();
 		}
 		return result;
+
 	}
 
 	
@@ -44,6 +51,7 @@ public class DingDanDAOImp extends BaseDAOImp implements DingDanDAO {
 	 * @see com.getee.shopmanage.model.dao.DingDanDAO#delDD(int)
 	 */
 		@Override
+
 	public boolean delDD(Object o) {
 			DingDan c=(DingDan)o;
 			boolean result=false;
@@ -55,11 +63,13 @@ public class DingDanDAOImp extends BaseDAOImp implements DingDanDAO {
 		            int count=getSta().executeUpdate(str);
 		            result = (count>0)?true:false;
 		            System.out.println(count);
+
 		        } catch (SQLException e) {
 		            e.printStackTrace();
 		            return false;
 		        }
 		        disposeResource(sta);
+
 			     return result;
 	}
 		/*
@@ -105,9 +115,6 @@ public class DingDanDAOImp extends BaseDAOImp implements DingDanDAO {
 			}
 		
 		
-		 
-		
-		
-		
+	
 
 }

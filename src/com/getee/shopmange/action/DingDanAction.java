@@ -2,16 +2,19 @@ package com.getee.shopmange.action;
 
 import java.util.ArrayList;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import com.getee.shopmanage.model.bean.DingDan;
 import com.getee.shopmanage.model.dao.*;
+
 import com.getee.shopmange.util.Responser;
 import com.opensymphony.xwork2.ActionSupport;
 public class DingDanAction extends ActionSupport{
@@ -91,9 +94,12 @@ public class DingDanAction extends ActionSupport{
 	}
 
 
+
 public DingDanAction() {
 	super();
+
 	dao=new DingDanDAOImp();
+
 }
 
 

@@ -13,6 +13,7 @@
 </head>
 <script type="text/javascript">
     function submit(value,name){
+
     	
     	 $("#tt").datagrid(
      		    {
@@ -24,6 +25,7 @@
      		    }
         ); 
         //alert(value+":"+name)
+
     }
 </script>
 <body>
@@ -35,6 +37,8 @@
     <div data-options="name:'kind',iconCls:'icon-ok'">种类搜索</div>
     <div data-options="name:'name'">名字搜索</div>
 </div>
+
+
 
 	
 	<table id="tt" class="easyui-datagrid" style="width:100%;height:400px"
@@ -135,3 +139,4 @@
 			$('#w').window('open');
 		}
 	</script>
+

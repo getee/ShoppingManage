@@ -7,7 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<title></title>
+
+<title>订单添加</title>
+
 	<link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="themes/icon.css">
     <link rel="stylesheet" type="text/css" href="css/demo.css">
@@ -15,6 +17,7 @@
     <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
 </head>
 <body>
+
 	<!-- <div style="margin:20px 0;"></div>
 	
 	<table id="dg" class="easyui-datagrid" title="删除订单" style="width:1050px;height:500px"
@@ -180,5 +183,6 @@
 		
 </script>
 	
+
 </body>
 </html>

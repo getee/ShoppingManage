@@ -1,6 +1,8 @@
 package com.getee.shopmange.action;
 
+
 import java.io.UnsupportedEncodingException;
+
 import java.util.ArrayList;
 
 import org.apache.struts2.ServletActionContext;
@@ -15,6 +17,7 @@ public class WineAction {
 	private Wine wine;
 	private String searchValue;
 	private String searchKind;
+
 	private String page;
 	private String rows;
 	public String getPage() {
@@ -32,6 +35,7 @@ public class WineAction {
 	public void setRows(String rows) {
 		this.rows = rows;
 	}
+
 	WineDaoImp dao=null;
 	
 	
@@ -64,6 +68,7 @@ public class WineAction {
 	public void setSearchKind(String searchKind) {
 		this.searchKind = searchKind;
 	}
+
 
 	
 	private int page;
@@ -133,10 +138,12 @@ public class WineAction {
 		}
 		
 	}
+
 	public String execute() {
 		
 		return "success";
 	}
+
 	/**
 	 * 这是商品管理->搜索商品业务
 	 * 可以按照种类与名字查询
@@ -184,6 +191,7 @@ System.out.println("3----");
 		try {
 			Responser.responseToJson(ServletActionContext.getResponse(), ServletActionContext.getRequest(), js.toString());
 		} catch (Exception e) {
+
 			e.printStackTrace();
 		}
 

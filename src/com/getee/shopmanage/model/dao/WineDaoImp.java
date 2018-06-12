@@ -2,12 +2,14 @@ package com.getee.shopmanage.model.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.getee.shopmanage.model.bean.Wine;
 
 public class WineDaoImp extends BaseDAOImp implements WineDAO {
+
 	 
 	/**
      * 分页获取酒信息
@@ -29,7 +31,6 @@ public class WineDaoImp extends BaseDAOImp implements WineDAO {
 		}
 		return wines;
 	}
-	
 	
 	
 	
@@ -104,6 +105,13 @@ public class WineDaoImp extends BaseDAOImp implements WineDAO {
 
 
 	@Override
+	public ArrayList<Wine> getWinePage(int page, int count) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
 	public boolean addWine(Wine w) {
 		// TODO Auto-generated method stub
 		return false;
@@ -114,6 +122,7 @@ public class WineDaoImp extends BaseDAOImp implements WineDAO {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 
 	 /**
      * 删除酒信息
@@ -150,5 +159,6 @@ public class WineDaoImp extends BaseDAOImp implements WineDAO {
 			e.printStackTrace();
 		}
 		return c;
+
 	}
 }
