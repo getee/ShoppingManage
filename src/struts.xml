@@ -10,5 +10,5 @@
 <include file="struts_wine.xml"></include>
 <include file="struts_DD.xml"></include>
 <include file="struts_comment.xml"></include>
-
+<constant name="struts.i18n.encoding" value="UTF-8"></constant> 
 </struts>
