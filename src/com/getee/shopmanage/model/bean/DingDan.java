@@ -1,13 +1,14 @@
 package com.getee.shopmanage.model.bean;
 
 public class DingDan {
-	private  int dd_id;
-	private  int user_id;
-	private  int wine_id;
-	private  int state;
-	private  int  number;
-	private  float prices;
-	
+
+	private int user_id;
+	private int dd_id;
+	private int wine_id;
+	private int number;
+	private float prices;
+	private int state;
+
 	public int getDd_id() {
 		return dd_id;
 	}
@@ -44,6 +45,7 @@ public class DingDan {
 	public void setPrices(float prices) {
 		this.prices = prices;
 	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -54,6 +56,7 @@ public class DingDan {
 	}
 
 	public DingDan(int dd_id, int user_id, int wine_id, int state, int number, float price) {
+
 		super();
 		this.dd_id = dd_id;
 		this.user_id = user_id;
@@ -62,8 +65,9 @@ public class DingDan {
 		this.number = number;
 		this.prices = prices;
 	}
-  public DingDan(){
-    super();
-  }
-		
+
+	public DingDan() {
+		super();
+	}
+	
 }
