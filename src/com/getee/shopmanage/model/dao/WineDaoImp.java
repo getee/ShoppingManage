@@ -126,7 +126,7 @@ public class WineDaoImp extends BaseDAOImp implements WineDAO {
 	}
 
 
-	@Override
+	
 	public ArrayList<Wine> getWinePage(int page, int count) {
 		// TODO Auto-generated method stub
 		return null;
@@ -172,19 +172,6 @@ public class WineDaoImp extends BaseDAOImp implements WineDAO {
 		return true;
 	}
 
-
-
-	@Override
-	public boolean addWine(Wine w) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean update(Wine w) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 
 	 /**

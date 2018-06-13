@@ -147,20 +147,18 @@ $('#sysmenu').tree({
             addPanel(node.text,'delWines.jsp');
         }else if(node.text=='订单添加'){
             addPanel(node.text,'addDD.jsp');
-        }else if(node.text=='搜索订单'){
+        }/* else if(node.text=='搜索订单'){
             addPanel(node.text,'searchDD.jsp');
         }else if(node.text=='修改订单'){
             addPanel(node.text,'editDD.jsp');
         }else if(node.text=='删除订单'){
             addPanel(node.text,'delDD.jsp');
-        }else if(node.text=='查看评论'){
+        } */else if(node.text=='查看评论'){
             addPanel(node.text,'allComment.jsp');
         }else if(node.text=='评论添加'){
             addPanel(node.text,'addComment.jsp');
         }else if(node.text=='搜索评论'){
             addPanel(node.text,'searchComment.jsp');
-        }else if(node.text=='删除评论'){
-            addPanel(node.text,'delComment.jsp');
         }else if(node.text=='系统公告'){
         	addPanel(node.text,'about.jsp');
         }

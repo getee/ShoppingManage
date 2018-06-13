@@ -5,26 +5,35 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.UUID;
 
 
+
+
+
+
+
 import javax.servlet.ServletContext;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.RequestAware;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.getee.shopmanage.model.bean.User;
-import com.getee.shopmanage.model.dao.UserDaoImp;
+import com.getee.shopmanage.model.dao.*;
+import com.getee.shopmange.util.Responser;
 
 public class UserAction implements RequestAware{
     private User u;
     private User add;
     private User update;
-    private UserDaoImp ud;
+    private UserDAOImp ud;
     
     private File myfile;
     //struts2在文件上传时提供的属性	
@@ -80,6 +89,7 @@ public class UserAction implements RequestAware{
 
 	public void setVal(String val) {
 		this.val = val;
+	}
 
 	public String getMyfileFileName() {
 		return myfileFileName;
@@ -99,7 +109,7 @@ public class UserAction implements RequestAware{
 	}
 
 	public UserAction() {
-    	ud=new UserDaoImp();
+    	ud=new UserDAOImp();
 	}
 
 	public User getAdd() {
@@ -188,7 +198,33 @@ public class UserAction implements RequestAware{
     }
 
     
+    private int page;
+    private int count;
     
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     /**
      * 这是显示所有用户的方法
      * @param page
