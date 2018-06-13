@@ -13,7 +13,7 @@
     <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
 </head>
 <body>
-<div class="easyui-layout" style="width:100%;height:700px;">
+<div class="easyui-layout" style="width:100%;height:600px;">
         <div data-options="region:'north'" style="height:80px; margin: auto; padding:auto">
                 <h1>后台管理系统</h1>
         </div>
@@ -79,9 +79,13 @@
                                 </li>
                             </ul>
                         </li>
-                        <li data-options="state:'closed'">
+                      <!--   <li data-options="state:'closed'"> -->
+                      <li>
                             <span>评论管理</span>
                             <ul>
+                             	<li>
+                                    <span>查看评论</span>
+                                </li>
                                 <li>
                                     <span>评论添加</span><!-- 酒id,用户id，状态：好坏评，内容 -->
                                 </li>
@@ -149,6 +153,8 @@ $('#sysmenu').tree({
             addPanel(node.text,'editDD.jsp');
         }else if(node.text=='删除订单'){
             addPanel(node.text,'delDD.jsp');
+        }else if(node.text=='查看评论'){
+            addPanel(node.text,'allComment.jsp');
         }else if(node.text=='评论添加'){
             addPanel(node.text,'addComment.jsp');
         }else if(node.text=='搜索评论'){

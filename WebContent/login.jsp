@@ -32,6 +32,7 @@
 
             <div style="margin-bottom:20px">
                 <input class="easyui-textbox" name="code"  maxlength="4" style="width:60%" data-options="label:'验证码:'">
+
                <!-- <img id="code" src="admin/CodeAction.action" style="width: 90px;height: 30px;position: relative;top: 11px;margin-left: 10px;" /> -->
                </div>
 
@@ -58,7 +59,7 @@
 	    $('#dlg').dialog('close');//网页一打开让提示框消失
 
 	    $("#code").click(function(){
-	       // $(this).attr("src","admin/CodeAction.action?time="+new Date())
+	    //   $(this).attr("src","admin/CodeAction.action?time="+new Date())
 	    })
 	    
 	})
