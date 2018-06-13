@@ -2,48 +2,47 @@ package com.getee.shopmange.action;
 
 import java.util.ArrayList;
 
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONArray;
 import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import com.getee.shopmanage.model.bean.DingDan;
-import com.getee.shopmanage.model.dao.DdDAO;
-import com.getee.shopmanage.model.dao.DdDAOImp;
+import com.getee.shopmanage.model.dao.*;
+
 import com.getee.shopmange.util.Responser;
 import com.opensymphony.xwork2.ActionSupport;
-import com.sun.net.httpserver.HttpContext;
-
 public class DingDanAction extends ActionSupport{
-	private DingDan dd;
-	private DdDAO dao;
-	private JSONArray jj;
-	 private int dd_id;
+	HttpServletRequest request = ServletActionContext.getRequest();
+	HttpServletResponse response = ServletActionContext.getResponse();
+	 private DingDanDAO  dao;
+	 private int page;
+     private int rows;
+     private int dd_id;
      private int user_id;
      private int wine_id;
      private int number;
      private float prices;
      private  int state;
-     private int page;
-     private int rows;
+     private  int delId;
      
-	public int getPage() {
-		return page;
+   
+	public int getDelId() {
+		return delId;
 	}
-	public void setPage(int page) {
-		this.page = page;
+	public void setDelId(int delId) {
+		this.delId = delId;
 	}
-	public int getRows() {
-		return rows;
+	public int getUser_id() {
+		return user_id;
 	}
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
-	public int getDd_id() {
-		return dd_id;
-	}
-	public void setDd_id(int dd_id) {
-		this.dd_id = dd_id;
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 	public int getWine_id() {
 		return wine_id;
@@ -69,114 +68,163 @@ public class DingDanAction extends ActionSupport{
 	public void setState(int state) {
 		this.state = state;
 	}
-	public JSONArray getJj() {
-		return jj;
+	public int getDd_id() {
+		return dd_id;
 	}
-	public void setJj(JSONArray jj) {
-		this.jj = jj;
+	public void setDd_id(int dd_id) {
+		this.dd_id = dd_id;
 	}
-	public DingDanAction(){
-		dao=new DdDAOImp();
+	public DingDanDAO getDao() {
+		return dao;
 	}
-	public DingDan getDd() {
-		return dd;
+	public void setDao(DingDanDAO dao) {
+		this.dao = dao;
+	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getRows() {
+		return rows;
+	}
+	public void setRows(int rows) {
+		this.rows = rows;
 	}
 
-	public void setDd(DingDan dd) {
-		this.dd = dd;
+
+
+public DingDanAction() {
+	super();
+
+	dao=new DingDanDAOImp();
+
+}
+
+
+
+/*
+ * 处理添加的业务方法
+ */
+public String addDD(){
+	DingDan dd=new DingDan();
+	dd.setDd_id(dd_id);
+	dd.setUser_id(user_id);
+	dd.setWine_id(wine_id);
+    dd.setNumber(number);
+    dd.setPrices(prices);
+    dd.setState(state);
+    System.out.println(dd.toString());
+    boolean result = dao.addDD(dd);
+	JSONObject data = new JSONObject();
+	try {
+		data.put("result", result+"");
+		System.out.println(result);
+	} catch (JSONException e) {
+		e.printStackTrace();
 	}
-	public int getUser_id() {
-		return user_id;
+	try {
+		System.out.println(data.toString());
+		Responser.responseToJson(response, request, data.toString());
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	return null;
+}
+
+/*
+ * 删除订单的业务
+ */
+public String delDD() {
+	DingDan dd=new DingDan();
+	dd.setDd_id(delId);
+	System.out.println(dd.toString());
+	boolean result=dao.delDD(dd);
+	JSONObject data = new JSONObject();
+	try {
+		data.put("result", result+"");
+	} catch (JSONException e) {
+	e.printStackTrace();
 	}
-	/**
-	 * 搜索订单
-	 */
-	public void searchDingdan(){
-		//System.out.println("进入到了搜索订单的后台了");
-		ArrayList<DingDan> dds=dao.searchDd(user_id);
-		JSONArray  js=new JSONArray();
-		for(DingDan dd:dds)
-		{
-			try {
-				JSONObject  j=new JSONObject();
-				j.put("dd_id", dd.getDd_id());
-				j.put("user_id", dd.getUser_id());
-				j.put("wine_id", dd.getWine_id());
-				j.put("state", dd.getState());
-				j.put("number", dd.getNumber());
-				j.put("prices", dd.getPrices());
-				js.put(j);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
+	try {
+		Responser.responseToJson(response, request, data.toString());
+	} catch (Exception e1) {
+		e1.printStackTrace();
+	}
+	return null;
+}
+
+/*
+ * 分页
+ */
+public String listDeliveryByPage() {
+	ArrayList<DingDan> all = (ArrayList<DingDan>)dao.list(rows, page);
+	int count = dao.watchcount();
+	JSONObject data = new JSONObject();
+	JSONArray rowsCollection = new JSONArray();
+	for(DingDan dd:all) {
+		JSONObject propertiseobject = new JSONObject();
 		try {
-			Responser.responseToJson(ServletActionContext.getResponse(), ServletActionContext.getRequest(), js.toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void getAllDingdan(){
-		ArrayList<DingDan> dds=dao.listDd(rows,page);
-		int count =(dao.getAllCount()).size();
-		//System.out.println(count);
-		JSONArray  js=new JSONArray();
-		JSONObject data = new JSONObject();
-		for(DingDan dd:dds)
-		{
-			try {
-				JSONObject  j=new JSONObject();
-				j.put("dd_id", dd.getDd_id());
-				j.put("user_id", dd.getUser_id());
-				j.put("wine_id", dd.getWine_id());
-				j.put("state", dd.getState());
-				j.put("number", dd.getNumber());
-				j.put("prices", dd.getPrices());
-				js.put(j);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-		try {
-				data.put("total", count);
-				data.put("rows", js);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		try {
-			Responser.responseToJson(ServletActionContext.getResponse(), ServletActionContext.getRequest(), data.toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void processSave(){
-		System.out.println("进入到保存数据库的方法了");
-		DingDan dd=new DingDan();
-		dd.setUser_id(user_id);
-		dd.setDd_id(dd_id);
-		dd.setWine_id(wine_id);
-	    dd.setNumber(number);
-	    dd.setPrices(prices);
-	    dd.setState(state);
-	    System.out.println(dd.toString());
-	    boolean result = dao.saveDd(dd);
-		JSONObject data = new JSONObject();
-		try {
-			data.put("result", result+"");
-			System.out.println(result);
+			propertiseobject.put("dd_id",dd.getDd_id());
+			propertiseobject.put("user_id",dd.getUser_id());
+			propertiseobject.put("wine_id",dd.getWine_id());
+			propertiseobject.put("number",dd.getNumber());
+			propertiseobject.put("prices",dd.getPrices() );
+			propertiseobject.put("state",dd.getState());
+			rowsCollection.put(propertiseobject);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+	}
+	try {
+		data.put("total", count);
+		data.put("rows", rowsCollection);
+	} catch (JSONException e1) {
+		e1.printStackTrace();
+	}
+	try {
+		System.out.println(data.toString());
+		Responser.responseToJson(response, request, data.toString());
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return null;
+}
+
+
+public String listObligationByPage() {
+	ArrayList<DingDan> all = (ArrayList<DingDan>)dao.list(rows, page);
+	int count = dao.watchcount();
+	JSONObject data = new JSONObject();
+	JSONArray rowsCollection = new JSONArray();
+	for(DingDan dd:all) {
+		JSONObject propertiseobject = new JSONObject();
 		try {
-			System.out.println(data.toString());
-			Responser.responseToJson(ServletActionContext.getResponse(), ServletActionContext.getRequest(), data.toString());
-		} catch (Exception e) {
+			propertiseobject.put("dd_id",dd.getDd_id());
+			propertiseobject.put("user_id",dd.getUser_id());
+			propertiseobject.put("wine_id",dd.getWine_id());
+			propertiseobject.put("number",dd.getNumber());
+			propertiseobject.put("prices",dd.getPrices() );
+			propertiseobject.put("state",dd.getState());
+			rowsCollection.put(propertiseobject);
+		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 	}
+	try {
+		data.put("total", count);
+		data.put("rows", rowsCollection);
+	} catch (JSONException e1) {
+		e1.printStackTrace();
+	}
+	try {
+		Responser.responseToJson(response, request, data.toString());
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return null;
+}
+
+
 }

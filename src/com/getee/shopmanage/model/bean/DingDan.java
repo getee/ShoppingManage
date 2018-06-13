@@ -1,26 +1,14 @@
 package com.getee.shopmanage.model.bean;
 
 public class DingDan {
-	/*-- 订单id不唯一，具有相同id的视为同一订单
-	dd_id int NOT NULL COMMENT '订单id不唯一，具有相同id的视为同一订单',
-	user_id int NOT NULL,
-	wine_id int NOT NULL,
-	-- 0 待发货
-	-- 1 快递中
-	-- 2 已送达
-	state int DEFAULT 0 NOT NULL COMMENT '0 待发货
-1 快递中
-2 已送达',
-	-- 购买数量
-	number int DEFAULT 1 NOT NULL COMMENT '购买数量',
-	-- 总价格
-	prices float NOT NULL COMMENT '总价格'*/
+
 	private int user_id;
 	private int dd_id;
 	private int wine_id;
 	private int number;
 	private float prices;
 	private int state;
+
 	public int getDd_id() {
 		return dd_id;
 	}
@@ -57,7 +45,18 @@ public class DingDan {
 	public void setPrices(float prices) {
 		this.prices = prices;
 	}
-	public DingDan(int dd_id, int user_id, int wine_id, int state, int number, float prices) {
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "DingDan [dd_id=" + dd_id + ", user_id=" + user_id + ", wine_id=" + wine_id + ", state=" + state
+				+ ", number=" + number + ", price=" + prices + "]";
+	}
+
+	public DingDan(int dd_id, int user_id, int wine_id, int state, int number, float price) {
+
 		super();
 		this.dd_id = dd_id;
 		this.user_id = user_id;
@@ -66,14 +65,9 @@ public class DingDan {
 		this.number = number;
 		this.prices = prices;
 	}
+
 	public DingDan() {
 		super();
 	}
-	@Override
-	public String toString() {
-		return "DingDan [user_id=" + user_id + ", dd_id=" + dd_id + ", wine_id=" + wine_id + ", number=" + number
-				+ ", prices=" + prices + ", state=" + state + "]";
-	}
-	
 	
 }
