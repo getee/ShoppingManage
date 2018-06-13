@@ -96,6 +96,7 @@ public class UserAction{
 	}
 
 	public User getU() {
+
         return u;
     }
 
@@ -108,6 +109,7 @@ public class UserAction{
         System.out.println(u.getName()+"$$"+u.getPassword());
         return "success";
     }
+
     public String AddUser() {
     	//1.拿到ServletContext
     	ServletContext servletContext = ServletActionContext.getServletContext();
@@ -161,4 +163,93 @@ public class UserAction{
     	ServletActionContext.getRequest().setAttribute("update", b);
     	return "success";
     }
+
+    
+    
+    /**
+     * 这是显示所有用户的方法
+     * @param page
+     * @param count
+     */
+   public void listUser() {
+	   System.out.println(page+"/n "+count);
+	   UserDAOImp dao=new  UserDAOImp();
+	   ArrayList<User> user=dao.getUserPage( page, count);
+	   JSONArray ja=new JSONArray();
+	   for(User u:user) {
+		   JSONObject j=new JSONObject();
+		   try {
+			j.put("userid", u.getId());
+			j.put("username", u.getName());
+			j.put("phone", u.getPhone());
+			j.put("province", u.getProvince());
+			j.put("city", u.getCity());
+			j.put("picture", "<img src='\"+u.getPicture()+\"' style='width:20px;height:20px' />");
+			ja.put(j);
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		   }
+	   System.out.println(ja.toString());
+
+		try {
+			Responser.responseToJson(ServletActionContext.getResponse(), ServletActionContext.getRequest(), ja.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   }
+    
+   /**
+    * 这是搜索用户的方法
+    */
+   public void searchUsers() {
+	   System.out.println(key);
+	   System.out.println(val);
+	   UserDAOImp dao=new  UserDAOImp();
+	   ArrayList<User> users=new ArrayList<User>();
+	   if(key.equals("username")){
+		 users=dao.searchNameUser(val, page, count);
+	   }else if (key.equals("userid")) {
+		   users=dao.getIDUser(val);
+	   }else if(key.equals("province")) {
+		   users=dao.searchProvinceUser(val, page, count);
+	   }
+	   JSONArray ja=new JSONArray();
+	
+	for(User u:users) {
+		   JSONObject j=new JSONObject();
+		   try {
+			j.put("userid", u.getId());
+			j.put("username", u.getName());
+			j.put("phone", u.getPhone());
+			j.put("province", u.getProvince());
+			j.put("city", u.getCity());
+			j.put("picture", "<img src='\"+u.getPicture()+\"' style='width:20px;height:20px' />");
+			ja.put(j);
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		   }
+	   System.out.println(ja.toString());
+
+		try {
+			Responser.responseToJson(ServletActionContext.getResponse(), ServletActionContext.getRequest(), ja.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   }
+    
+	@Override
+	public void setRequest(Map<String, Object> arg0) {
+	
+		
+	}
+
+
 }

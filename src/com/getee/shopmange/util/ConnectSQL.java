@@ -32,13 +32,14 @@ public class ConnectSQL {
             //String sql="delete from shop.users where user_id="+u.id;
 
             Statement sta=con.createStatement();//创建会话
-            ResultSet rs=sta.executeQuery("select * FROM shop.wine limit 0,5");
-
+            sta.executeUpdate("update shop.dingdan set user_id="+1+",dd_id="+8+", wine_id="+11+",number="+111+",prices="+111+",state="+1+" where user_id="+1+" and dd_id="+8);
+            /*ResultSet rs=sta.executeQuery("select * FROM shop.dingdan where user_id="+1+" and dd_id="+8);
             while(rs.next()){
-                System.out.println(rs.getInt("wine_id")+rs.getString("wine_name")+"="+rs.getString("kind"));
+                //System.out.println(rs.getInt("wine_id")+rs.getString("wine_name")+"="+rs.getString("kind"));
+                System.out.println("订单号："+rs.getInt("dd_id")+"用户："+rs.getInt("user_id")+"商品："+rs.getInt("wine_id")+"状态："+rs.getInt("state")+"数量："+rs.getInt("number")+"总价："+rs.getFloat("prices"));
             }
-            rs.close();//关闭结果集
-            sta.close();//关闭会话
+            rs.close();//关闭结果集 
+*/           sta.close();//关闭会话
             con.close();//关闭链接
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
