@@ -19,16 +19,20 @@
 	<div id="mm">
 		<div data-options="name:'userid'">用户id</div>
 		<div data-options="name:'username'">用户名</div>
-	    <div data-options="name:'province'">地区</div>
-		<div data-options="name:'phone'">电话</div>
-       
+	    <div data-options="name:'province'">省份</div>
+	    <div data-options="name:'city'">城市</div>
+		
 	</div>
     <!--   <div class="easyui-panel" style="width:100%;max-width:400px;padding:30px 60px;">
 		<input class="easyui-searchbox" data-options="prompt:'请输入您要搜索的用户名',searcher:doSearch" style="width:100%">
 	</div> -->
 	
-	  <table class="easyui-datagrid" style="width: 74%;height: 450px;margin: 5px"  id="aaa"
-        data-options="singleSelect:true,collapsible:true,url:url1,method:'get'">
+	  <table class="easyui-datagrid" style="width: 100%;height: 450px;margin: 5px"  id="aaa"
+        data-options="singleSelect:true,
+                                collapsible:true,
+                                fitColumns: true,//自动适应宽度 
+                                autoRowHeight: true,//自动行高度  
+                                method:'get'">
            <thead>
             <tr>
                     <th data-options="field:'userid',width:60,align:'left'">用户编号</th>
@@ -43,12 +47,19 @@
         	
 <script type="text/javascript">
      function doSearch(value,name){
-    	 var url1="'UserAction!searchUsers.action?&page=1&count=3&key='+name+'&val='+value";
-         $("#aaa").datagrid("data-options",{url:url1});
-	     //$("#mm").datagrid("data-options",{iconCls:'icon-ok'});
-	  
-	   //var Url="UserAction!searchUsers.action?&page=1&count=3&key=name&val=value";
-	alert('You input: ' + value+'('+name+')');
+    	//   var url1="UserAction!searchUsers.action?page=1&count=3&key="+name+"&val="+value;
+    	  // alert(url1);
+           $("#aaa").datagrid(
+        		    {
+        		    	url:"UserAction!searchUsers.action?page=1&count=3",
+        		    	queryParams:{
+        		    		key:name,
+        		    		val:value
+        		    	   }
+        		    	}
+           ); 
+           
+	      // alert('You input: ' + value+'('+name+')');
 }</script>
     
 </body>

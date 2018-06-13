@@ -11,10 +11,10 @@
          
        </action>
       <action name="UserAction" class="com.getee.shopmange.action.UserAction"  method="listUser">
-            <result  type="redirect">/allUsers.jsp</result>
+            <result name="listUsers"  type="redirect">/allUsers.jsp</result>
       </action>
         <action name="UserAction" class="com.getee.shopmange.action.UserAction"  method="searchUsers">
-            <result  type="redirect">/searchUsers.jsp</result>
+            <result  name="searchUsers" type="redirect">/searchUsers.jsp</result>
       </action>
        
     </package>
