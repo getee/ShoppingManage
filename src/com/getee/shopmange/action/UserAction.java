@@ -1,9 +1,13 @@
 package com.getee.shopmange.action;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
 import com.getee.shopmanage.model.bean.User;
@@ -12,12 +16,41 @@ import com.getee.shopmanage.model.dao.UserDaoImp;
 public class UserAction{
     private User u;
     private User add;
+    private User update;
     private UserDaoImp ud;
     
     private File myfile;
     //struts2在文件上传时提供的属性	
     private String myfileFileName;//上传的文件名。上传字段名称+FileName  注意大小写
    	private String myfileContentType;//上传文件的MIME类型。上传字段名称+ContentType 注意大小写
+    private File upload;
+    private String uploadFileName;
+   	private String uploadContentType;
+   	
+	public File getUpload() {
+		return upload;
+	}
+
+	public void setUpload(File upload) {
+		this.upload = upload;
+	}
+
+	public String getUploadFileName() {
+		return uploadFileName;
+	}
+
+	public void setUploadFileName(String uploadFileName) {
+		this.uploadFileName = uploadFileName;
+	}
+
+	public String getUploadContentType() {
+		return uploadContentType;
+	}
+
+	public void setUploadContentType(String uploadContentType) {
+		this.uploadContentType = uploadContentType;
+	}
+
 	public File getMyfile() {
 		return myfile;
 	}
@@ -54,6 +87,14 @@ public class UserAction{
 		this.add = add;
 	}
 
+	public User getUpdate() {
+		return update;
+	}
+
+	public void setUpdate(User update) {
+		this.update = update;
+	}
+
 	public User getU() {
         return u;
     }
@@ -71,18 +112,53 @@ public class UserAction{
     	//1.拿到ServletContext
     	ServletContext servletContext = ServletActionContext.getServletContext();
     	//2.调用realPath方法，获取根据一个虚拟目录得到的真实目录	
-    	String realPath = servletContext.getRealPath("/WEB-INF/file");
+    	String realPath = servletContext.getRealPath("/images/file");
     	   //3.如果这个真实的目录不存在，需要创建
     	 		File file = new File(realPath );
     			if(!file.exists()){
+    				System.out.println("创建文件夹");
     			file.mkdirs();
     			}
     		//4.把文件存过去
     			//拷贝：把文件的临时文件复制到指定的位置。注意：临时文件还在
-    		//FileUtils.copyFile(myfile, new File(file,myfileFileName));
+    		/*try {
+				FileUtils.copyFile(myfile, new File(file,myfileFileName));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}*/
     		//剪切：把临时文件剪切指定的位置，并且给他重命名。 注意：临时文件没有了
-   		myfile.renameTo(new File(file,myfileFileName));
-   		System.out.println(myfile.getAbsolutePath());
-   		return "success";
+    			File newfile=new File(file,myfileFileName);
+    			myfile.renameTo(newfile);
+   		System.out.println(newfile.getAbsolutePath());
+		String  urlPath=newfile.getAbsolutePath().substring(newfile.getAbsolutePath().indexOf("images"),newfile.getAbsolutePath().length());
+   		System.out.println(urlPath);
+   		add.setPicture(urlPath);
+   		boolean b=ud.addUser(add);   		
+   		ServletActionContext.getRequest().setAttribute("jieguo", b);
+		return "success";
 }
+    public void uploadImg() {
+    	String path=ServletActionContext.getRequest().getRealPath("images");//用request获取服务器上的upload目录绝对地址
+		String lastFileName=UUID.randomUUID()+uploadFileName.substring(uploadFileName.lastIndexOf("."),	 uploadFileName.length());
+		File  dest=new File(path,lastFileName);//新建一个文件对象，准备将上传的文件存储到这个文件位置上
+		try {
+			FileUtils.copyFile(upload, dest);//用apache的fileupload组件里面的文件帮助类直接讲上传的文件拷贝到我们想放置的文件位置上
+			System.out.println("upload  ok");
+			//ajax response text
+			ServletActionContext.getResponse().setContentType("text/html;charset=utf-8");
+			PrintWriter  out=ServletActionContext.getResponse().getWriter();
+			System.out.println("images/"+lastFileName);
+			out.write("images/"+lastFileName);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    }
+    public String updateUser() {
+    	boolean b=ud.update(update);
+    	ServletActionContext.getRequest().setAttribute("update", b);
+    	return "success";
+    }
 }

@@ -8,22 +8,27 @@
        <constant name="struts.devMode" value="true" />
       <!-- 限制上传文件的大小，第一种方式：通过修改struts2的常量。
  		在default.properties中配的struts.multipart.maxSize=2097152-->
-     <constant name="struts.multipart.maxSize" value="4097152" />
+     <constant name="struts.multipart.maxSize" value="52428800" />
  
    <package name="p1"  extends="struts-default" namespace="/">
  
  	  <action  name ="AddUserAction" class = "com.getee.shopmange.action.UserAction" method="AddUser">
 
-           <!-- 第二种方式:通过给fileUpload的拦截器注入参数的形式，控制上传文件的大小
-          无法使用   <param name="fileUpload.maximumSize">31457280</param>-->
+           	<!-- 第二种方式:通过给fileUpload的拦截器注入参数的形式，控制上传文件的大小
+          	无法使用   <param name="fileUpload.maximumSize">31457280</param>-->
 	     	<interceptor-ref name="defaultStack">
 	        <!-- 限制上传文件的扩展名。如果有多个，使用逗号分隔
  	        <param name="fileUpload.allowedExtensions">jpg,png,bmp</param>-->
 	        <!-- 限制上传文件的MIME类型。 如果有多个，使用逗号分隔 -->
-               <param name="fileUpload.allowedTypes">image/jpg,image/pjpeg,image/png
-               </param>
+               <param name="fileUpload.allowedTypes">image/jpg,image/jpeg,image/png,image/gif</param>
+                 <param name="fileUpload.allowedExtensions">.jpg,.jpeg,.gif,.png</param>
 	     	</interceptor-ref>
     		 <result	name="success">/addUsers.jsp</result>
+	  </action>
+	   <action  name ="uploadImgAction" class = "com.getee.shopmange.action.UserAction" method="uploadImg">
+	  </action>
+	  <action  name ="updateUserImgAction" class = "com.getee.shopmange.action.UserAction" method="updateUser">
+	  	<result name="success">/editusers.jsp</result>
 	  </action>
   </package>
   </struts>

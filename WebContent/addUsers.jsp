@@ -12,16 +12,15 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
 
-<title>Insert title here</title>
+<title>用户添加</title>
 </head>
 <body>
 	<div style="margin:20px 0;"></div>
 	<div style="width:800px;margin: auto;">
 		<form id="ff" action="AddUserAction!AddUser.action" method="post" enctype="multipart/form-data">
 			<div style="margin-bottom:20px;width:200px;height:400px;position: relative;top:50px;">
-				<img alt="" src="" width=200px height=300px/>
-				 <s:file  name="myfile"  label=""></s:file>
-				<input type="hidden" name="" value=""/>
+				<img id="touxiang" src="themes/icons/moren.jpg" width=200px height=300px/>
+				 <s:file id="xuanze"  name="myfile"  label=""></s:file>
 			</div>
 			<div style="width:400px;position:relative;left:300px;top:-350px;">
 				<div style="margin-bottom:20px">
@@ -49,8 +48,8 @@
 					<input id="city" type="hidden" name="add.city"/>
 				</div>
 				<div style="text-align:center;padding:5px 0">
-					<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">Submit</a>
-					<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">Clear</a>
+					<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">提交</a>
+					<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">清除</a>
 				</div>
 			</div>
 		</form>
