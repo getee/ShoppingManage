@@ -43,6 +43,11 @@ public interface UserDAO {
     public boolean addUser(String name, String password);
 
     /**
+     * 新添加用户数据(id会自动增长)
+     */
+    public boolean addUser(User u);
+    
+    /**
      * 修改用户数据(用户id,name不可修改)
      */
     public boolean update(User u);
