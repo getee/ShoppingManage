@@ -8,7 +8,7 @@
        <action name="UserAction" class="com.getee.shopmange.action.UserAction"  >
             <result name="success" type="redirect">/index.jsp</result>
             <result name="fail">/login.jsp</result>
-            
+         
        </action>
       <action name="UserAction" class="com.getee.shopmange.action.UserAction"  method="listUser">
             <result name="listUsers"  type="redirect">/allUsers.jsp</result>

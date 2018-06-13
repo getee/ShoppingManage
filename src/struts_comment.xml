@@ -3,5 +3,11 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-
+<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+	<package name="comment" extends="struts-default" >
+		<action name="CommentAction" class="com.getee.shopmange.action.CommentAction">
+		<result name="success">/addComment.jsp</result>
+		<result name="fail">/addComment.jsp</result>
+		</action>
+	</package>
 </struts>

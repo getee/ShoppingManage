@@ -52,7 +52,30 @@ public class User {
     public void setPicture(String picture) {
         this.picture = picture;
     }
-    @Override
+    public User() {
+		super();
+	}
+	public User(int id, String name, String password, String province, String city, int phone, String picture) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.province = province;
+		this.city = city;
+		this.phone = phone;
+		this.picture = picture;
+	}
+	
+	public User(String name, String password, String province, String city, int phone, String picture) {
+		super();
+		this.name = name;
+		this.password = password;
+		this.province = province;
+		this.city = city;
+		this.phone = phone;
+		this.picture = picture;
+	}
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;

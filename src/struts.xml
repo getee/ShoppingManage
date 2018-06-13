@@ -11,4 +11,13 @@
 <include file="struts_DD.xml"></include>
 <include file="struts_comment.xml"></include>
 
+<include file="file.xml"></include>
+	<package name="pc" extends="struts-default" abstract="false" namespace="/">
+       <action name="ProCityAction" class="com.getee.shopmange.action.ProCityAction" method="getProCityMess" >
+       <result name="success" type="redirect">/addUsers.jsp</result>
+       </action>
+    </package>
+
+<constant name="struts.i18n.encoding" value="UTF-8"></constant> 
+
 </struts>
