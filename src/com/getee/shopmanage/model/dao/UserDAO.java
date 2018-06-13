@@ -24,11 +24,17 @@ public interface UserDAO {
      * 分页获取用户信息
      */
     public ArrayList<User> getUserPage(int page, int count);
-
+     public ArrayList<User> searchCityUser(String val,int page, int count);
     /**
      * 分页获取,按用戶名搜索用户信息
      */
     public ArrayList<User> searchNameUser(String val,int page, int count);// 按%name%条件搜索用户
+    
+    /**
+     * 
+     * 根据城市搜素用户信息
+     */
+    ;// 按%name%条件搜索用户
     
     /**
      * 分页获取,按城市搜索用户信息

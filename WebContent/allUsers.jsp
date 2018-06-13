@@ -14,13 +14,23 @@
 <title>所有用户</title>
 </head>
 <body>
-       <table id="tt" class="easyui-datagrid" style="width: 74%;height: 450px;margin: 5px"  
-        data-options="
-          
-				                singleSelect: true,
-				                pagination:true,
-                                url:'UserAction!listUser.action?count=2&page=1',
-                              ">
+     <div id="tb" style="padding:5px;height:auto;margin: 5px" >
+	    <div style="margin-bottom:5px">
+		<a href="addUsers.jsp" class="easyui-linkbutton"   iconCls="icon-add" plain="true"></a>
+		<a href=""   class="easyui-linkbutton" iconCls="icon-edit" plain="true" id="tb"></a>
+	    <a href="searchUsers.jsp" class="easyui-linkbutton" iconCls="icon-search">搜索</a> 
+		<a href="" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>
+	     </div>
+	</div>
+	
+      <table id="ttt" class="easyui-datagrid" style="width: 100%;height: 450px;margin: 5px"  title="用户列表"
+                                singleSelect="true"
+                                collapsible="true"
+                                fitColumns="true"//自动适应宽度 
+                                autoRowHeight:="true"//自动行高度  
+                                url="UserAction!listUser.action?count=50&page=1"
+                                toolbar="#tb"
+                              >
            <thead>
             <tr>
                     <th data-options="field:'userid',width:60,align:'left'">用户编号</th>
@@ -31,18 +41,36 @@
                     <th data-options="field:'picture',width:150,align:'left'">头像</th>
             </tr>
             </thead>
-        </table>  
-   <script type="text/javascript">
-   var pager = $('#tt').datagrid('getPager');   
-	pager.pagination({
-		showPageList:false,
+        </table>   
+
+</div>
+<!-- <div id="aa" class="easyui-accordion" style="width:300px;height:200px;">
+    <div title="基本资料" data-options="iconCls:'icon-save'" style="overflow:auto;padding:10px;">
 		
-		onBeforeRefresh:function(){
-			alert('before refresh');
-			return true;
-		}
-	});
-   </script>
-   
+    </div>
+    <div title="头像" data-options="iconCls:'icon-reload'," style="padding:10px;">
+		
+    </div>
+    
+</div> -->
+ <script type="text/javascript">
+       var row = $('#ttt').datagrid('getSelected');
+       if (row){
+    	   alert(row.userid);
+    	   $("#tb").datagrid(
+       		    {
+       		    	herf:"editUsers.jsp",
+       		    	queryParams:{
+       		    		userid:row.userid,
+       		    		username:row.username,
+       		    		province:row.province,
+       		    		city:row.city,
+       		    		phone:row.phone,
+       		    		picture:row.picture
+       		    	   }
+       		    	}
+           ); 
+        } 
+</script>
 </body>
 </html>

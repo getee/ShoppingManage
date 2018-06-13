@@ -1,5 +1,6 @@
 package com.getee.shopmange.action;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class UserAction implements RequestAware{
     private Map<String, Object> request=new HashMap<>();
     private UserDAO dao; 
     private String key;//搜索用户的列名
-    private String val;//搜索用户的值
+    private String val;//搜索用户输入的值
 
 	private int page;
     private int count;
@@ -37,12 +38,13 @@ public class UserAction implements RequestAware{
 		this.key = key;
 	}
 
+
 	public String getVal() {
 		return val;
 	}
 
-	public void setVal(String value) {
-		this.val= val;
+	public void setVal(String val) {
+		this.val = val;
 	}
 
 	public int getPage() {
@@ -95,8 +97,8 @@ public class UserAction implements RequestAware{
      * @param page
      * @param count
      */
-   public void listUser() {
-	   System.out.println(page+"/n "+count);
+   public String listUser() {
+	   System.out.println(page+count);
 	   UserDAOImp dao=new  UserDAOImp();
 	   ArrayList<User> user=dao.getUserPage( page, count);
 	   JSONArray ja=new JSONArray();
@@ -108,11 +110,11 @@ public class UserAction implements RequestAware{
 			j.put("phone", u.getPhone());
 			j.put("province", u.getProvince());
 			j.put("city", u.getCity());
-			j.put("picture", "<img src='\"+u.getPicture()+\"' style='width:20px;height:20px' />");
+			j.put("picture", "<img src='"+u.getPicture()+"' style='width:20px;height:20px' />");
 			ja.put(j);
 			
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		   }
@@ -124,14 +126,23 @@ public class UserAction implements RequestAware{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return "listUsers";
    }
     
    /**
     * 这是搜索用户的方法
     */
-   public void searchUsers() {
+   public String searchUsers() {
+	 
+		try {
+			val=new String(val.getBytes("ISO-8859-1"),"UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	   System.out.println(key);
 	   System.out.println(val);
+	  
 	   UserDAOImp dao=new  UserDAOImp();
 	   ArrayList<User> users=new ArrayList<User>();
 	   if(key.equals("username")){
@@ -140,6 +151,8 @@ public class UserAction implements RequestAware{
 		   users=dao.getIDUser(val);
 	   }else if(key.equals("province")) {
 		   users=dao.searchProvinceUser(val, page, count);
+	   }else if(key.equals("city")) {
+		   users=dao.searchCityUser(val, page, count);
 	   }
 	   JSONArray ja=new JSONArray();
 	
@@ -151,7 +164,8 @@ public class UserAction implements RequestAware{
 			j.put("phone", u.getPhone());
 			j.put("province", u.getProvince());
 			j.put("city", u.getCity());
-			j.put("picture", "<img src='\"+u.getPicture()+\"' style='width:20px;height:20px' />");
+			String image="<img src='"+u.getPicture()+"' style='width:20px;height:20px' />";
+			j.put("picture", image);
 			ja.put(j);
 			
 		} catch (JSONException e) {
@@ -167,6 +181,7 @@ public class UserAction implements RequestAware{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return "searchUsers";
    }
     
 	@Override
